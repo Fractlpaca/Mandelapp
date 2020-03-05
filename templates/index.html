@@ -31,24 +31,12 @@
 			<div class='group' id='group'>
 				<div class='trigger' onclick="show(0)"><h3>Save</h3></div>
 				<div class='options'>
-					<form action="/saveLoc" method="POST">
-						<input type="hidden" value=0 name="x" id="formx">
-						<input type="hidden" value=0 name="y" id="formy">
-						<input type="hidden" value=1 name="zoom" id="formz">
-						<input type="hidden" value=600 name="limit" id="forml">
-						<input type="hidden" name="preview" id="formp">
-						<p>
-						Name: <input type="text" value="{{loc_name}}" name="name"><br/>
-						Private: <input type="checkbox" name="private" value="private">
-						</p>
-						{% if is_logged_in %}
-						<input type="submit" value="Save">
-						{% endif %}
-					</form>
 					{% if not is_logged_in %}
-					<p>Please <a href='{{url_for("login")}}'>log in</a>.</p>
+					
+					{% else %}
+					<p>Please <a href='{{url_for("login")}}'>log in</a> to save locations and colors..</p>
 					{% endif %}
-					<button onclick="showWindow('selectLoc')">Load Saved Location</a>
+					<!--<button onclick="showWindow('selectLoc')">Load Saved Location</a>-->
 					<!--<form action="./select" method="POST">
 						<input type="submit" value="Load Saved Location">
 					</form>-->
@@ -112,7 +100,7 @@
 						<input type="submit" value="Save">
 					</form>
 					{% endif %}
-					<button onclick="showWindow('selectCol')">Saved Colour Schemes</button>
+					<!--<button onclick="showWindow('selectCol')">Saved Colour Schemes</button>-->
 				</div>
 				<div class='trigger' onclick="show(3)"><h3>Parameters</h3></div>
 				<div class='options'>
@@ -124,6 +112,20 @@
 						<input id='changeZoom' type='number' value=10 min=1 step=0.1><button onclick='changeZoom(0)' style='width:22px;'>&divide</button><button onclick='changeZoom(1)' style='width:22px;'>&times</button>
 					</p>
 					<p>Iterations: <input type='number' id='limit' value=600></p>
+					{% if is_logged_in %}
+					<form action="/saveLoc" method="POST">
+						<input type="hidden" value=0 name="x" id="formx">
+						<input type="hidden" value=0 name="y" id="formy">
+						<input type="hidden" value=1 name="zoom" id="formz">
+						<input type="hidden" value=600 name="limit" id="forml">
+						<input type="hidden" name="preview" id="formp">
+						<p>
+						Name: <input type="text" value="{{loc_name}}" name="name"><br/>
+						Private: <input type="checkbox" name="private" value="private">
+						</p>
+						<input type="submit" value="Save">
+					</form>
+					{% endif %}
 				</div>
 				<div class='options' id='last'>
 					<button onclick="disable(true);setTimeout(run,0)" id='run'>Generate</button>
@@ -170,11 +172,11 @@
 			colorState.setparams();
 		</script>
 	{% endif %}
-	<div class='popupwindow' id="selectCol">
+	<!--<div class='popupwindow' id="selectCol">
 		<div>
 			<button onclick="hide();">Close</button><br>
 			<div class="select">
-				{{selectCol|safe}}
+				selectCol would go here
 			</div>
 		</div>
 	</div>
@@ -182,8 +184,8 @@
 		<div>
 			<button onclick="hide();">Close</button><br>
 			<div class="select">
-				{{selectLoc|safe}}
+				selectLoc would go here
 			</div>
 		</div>
-	</div>
+	</div>-->
 </body>
