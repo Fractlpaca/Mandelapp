@@ -1,0 +1,73 @@
+<h1>Color Schemes</h1>
+<div class="container">
+<table class="tabs">
+<tr>
+	<td><div class="tab" onclick="showSelection(0)"><h3>Your Colors</h3></div></td>
+	<td><div class="tab" onclick="showSelection(1)"><h3>Public Colors</h3></div></td>
+</tr>
+</table>
+{% if is_logged_in %}
+<table class="options">
+<tr>
+	<th>Choose location:</th>
+	<th>Name</th>
+	<th>Public/Private</th>
+</tr>
+{% for color_scheme in user_colors %}
+	<tr>
+		<td><form action="/colorSchemes" method="POST" id={{color_scheme.col_id}}>
+			<input type="hidden" value="{{color_scheme.col_id}}" name="col_id">
+			<input type="submit" value="Choose">
+		</form></td>
+		<td>{{color_scheme.name}}</td>
+		<td>{%if color_scheme.public%}Public{%else%}Private{%endif%}</td>
+		<!-- <td><form action="/delete" method="POST">
+			<input type="hidden" value="{{color_scheme.col_id}}" name="col_id">
+			<input type="submit" value="Delete">
+		</form></td> -->
+	<tr>
+{% endfor %}
+</table>
+{%else%}
+<div class="options">
+	<a href="{{url_for('login')}}">Please Login</a>
+</div>
+{% endif %}
+<table class="options">
+<tr>
+	<th>Choose location:</th>
+	<th>Name</th>
+	<th>Username</th>
+</tr>
+{% for color_scheme in public_colors %}
+	<tr>
+		<td><form action="/colorSchemes" method="POST" id={{color_scheme.col_id}}>
+			<input type="hidden" value="{{color_scheme.col_id}}" name="col_id">
+			<input type="submit" value="Choose">
+		</form></td>
+		<td>{{color_scheme.name}}</td>
+		<td>{{color_scheme.username}}</td>
+	<tr>
+{% endfor %}
+</table>
+</div>
+<footer>
+	{% if is_logged_in %}
+	<p>
+	Logged in as <strong>{{username}}</strong>.
+	<a href="{{url_for('logout')}}">Logout</a>
+	</p>
+	{% else %}
+	<p>
+	Not logged in. 
+	<a href="{{url_for('login')}}">Login</a>
+	<a href="{{url_for('register')}}">Register</a>
+	</p>
+	{% endif %}
+</footer>
+<script src="static/js/select.js"></script>
+{% if is_logged_in %}
+<script>showSelection(0)</script>
+{% else %}
+<script>showSelection(1)</script>
+{% endif %}

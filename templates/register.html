@@ -1,0 +1,26 @@
+<!doctype html>
+
+<head>
+	<title>Register</title>
+	<link rel="stylesheet" href="static/css/index.css">
+</head>
+
+<body>
+	<form action="/register" method="POST">
+		<p>Username:<input type="text" name="username" required></p>
+		<p>Password:<input type="password" name="password" required></p>
+		<p>Re-enter password:<input type="password" name="password2" required></p>
+		<input type="submit" value="Register">
+	</form>
+	{% if error_status!=0 %}
+		{% if error_status==1 %}
+			<p>Username has invalid characters</p>
+		{% elif error_status==2 %}
+			<p>Password must have at least 8 characters</p>
+		{% elif error_status==3 %}
+			<p>Passwords do not match</p>
+		{% elif error_status==4 %}
+			<p>Username already exists</p>
+		{% endif %}
+	{% endif %}
+</body>

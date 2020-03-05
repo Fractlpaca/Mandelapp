@@ -1,0 +1,96 @@
+<!doctype html>
+
+<head>
+	<link rel="stylesheet" href="static/css/select.css">
+    <link rel='icon' href='static/icons/favicon.png' sizes='32x32'>
+    <title>Select Location</title>
+</head>
+
+<body>
+	<header class='navbar'>
+        <p style='text-align:center;'>
+            <a href="{{url_for('home')}}">Mandelbrot Generator</a>|
+            <strong>Locations</strong>|
+            <a href="{{url_for('instructions')}}" target='_blank_'>How To Use</a>|
+            <a href="{{url_for('about')}}" target='_blank_'>What Is It?</a>
+        </p>
+    </header>
+	<h1>Locations</h1>
+	<div class="container">
+	<table class="tabs">
+	<tr>
+		<td><div class="tab" onclick="showSelection(0)"><h3>Your Locations</h3></div></td>
+		<td><div class="tab" onclick="showSelection(1)"><h3>Public Locations</h3></div></td>
+	</tr>
+	</table>
+	{% if is_logged_in %}
+	<table class="options">
+	<tr>
+		<th>Choose location:</th>
+		<th>Name</th>
+		<th>Co-ordinates</th>
+		<th>Public/Private</th>
+		<th>Delete</th>
+	</tr>
+	{% for location in user_locations %}
+		<tr>
+			<td><form action="/selectLoc" method="POST" id={{location.loc_id}}>
+				<input type="hidden" value="{{location.loc_id}}" name="loc_id">
+				<img src="{{get_preview(location.loc_id)}}" height=64 width=64 alt="Choose" onclick="document.getElementById('{{location.loc_id}}').submit()">
+			</form></td>
+			<td>{{location.name}}</td>
+			<td>X: {{((10000*location.x)|round)/10000}}<br>Y: {{((10000*location.y)|round)/10000}}</td>
+			<td>{%if location.public%}Public{%else%}Private{%endif%}</td>
+			<td><form action="/delete" method="POST">
+				<input type="hidden" value="{{location.loc_id}}" name="loc_id">
+				<input type="submit" value="Delete">
+			</form></td>
+		<tr>
+	{% endfor %}
+	</table>
+	{%else%}
+	<div class="options">
+		<a href="{{url_for('login')}}">Please Login</a>
+	</div>
+	{% endif %}
+	<table class="options">
+	<tr>
+		<th>Choose location:</th>
+		<th>Name</th>
+		<th>Co-ordinates</th>
+		<th>Username</th>
+	</tr>
+	{% for location in public_locations %}
+		<tr>
+			<td><form action="/selectLoc" method="POST" id={{location.loc_id}}>
+				<input type="hidden" value="{{location.loc_id}}" name="loc_id">
+				<img src="{{get_preview(location.loc_id)}}" height=64 width=64 alt="Choose" onclick="document.getElementById('{{location.loc_id}}').submit()">
+			</form></td>
+			<td>{{location.name}}</td>
+			<td>X: {{((10000*location.x)|round)/10000}}<br>Y: {{((10000*location.y)|round)/10000}}</td>
+			<td>{{location.username}}</td>
+		<tr>
+	{% endfor %}
+	</table>
+	</div>
+	<footer>
+		{% if is_logged_in %}
+		<p>
+		Logged in as <strong>{{username}}</strong>.
+		<a href="{{url_for('logout')}}">Logout</a>
+		</p>
+		{% else %}
+		<p>
+		Not logged in. 
+		<a href="{{url_for('login')}}">Login</a>
+		<a href="{{url_for('register')}}">Register</a>
+		</p>
+		{% endif %}
+	</footer>
+	<script src="static/js/select.js"></script>
+	{% if is_logged_in %}
+	<script>showSelection(0)</script>
+	{% else %}
+	<script>showSelection(1)</script>
+	{% endif %}
+</body>
