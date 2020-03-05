@@ -312,6 +312,7 @@ function createPreview(context=state.context){
 	pscr.drawImage(elements.screen,sx,sy,swidth,sheight,0,0,64,64);
 	var image=elements.pscreen.toDataURL("image/jpeg");
 	input.set("formp",image);
+	input.set("formp2",image);
 }
 
 function draw(array=state.valList,drawState=state,context=state.context,start=-2,direction=colorState.dir){
@@ -458,7 +459,9 @@ var colorState={
 		updateGrad("usergrad");
 	},
 	export: function(){
-		input.set("col_state", JSON.stringify(this));
+		var jstr = JSON.stringify(this);
+		input.set("col_state", jstr);
+		input.set("col_state2", jstr);
 	},
 	currentPoint: 0,
 	position: 0
@@ -746,6 +749,10 @@ function run(){
 	document.getElementById("formy").value=mstate.ycor;
 	document.getElementById("formz").value=mstate.zoom;
 	document.getElementById("forml").value=mstate.limit;
+	document.getElementById("formx2").value=mstate.xcor;
+	document.getElementById("formy2").value=mstate.ycor;
+	document.getElementById("formz2").value=mstate.zoom;
+	document.getElementById("forml2").value=mstate.limit;
 	mstate.clickX=mstate.xcor;
 	mstate.clickY=mstate.ycor;
 	var width=mstate.width;

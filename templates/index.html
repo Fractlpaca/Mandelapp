@@ -31,8 +31,26 @@
 			<div class='group' id='group'>
 				<div class='trigger' onclick="show(0)"><h3>Save</h3></div>
 				<div class='options'>
-					{% if not is_logged_in %}
-					
+					{% if is_logged_in %}
+					<p>Save location <i>and</i> color scheme.</p>
+					<form action="saveBoth" method="POST">
+						<input type="hidden" value=0 name="x" id="formx2">
+						<input type="hidden" value=0 name="y" id="formy2">
+						<input type="hidden" value=1 name="zoom" id="formz2">
+						<input type="hidden" value=600 name="limit" id="forml2">
+						<input type="hidden" name="preview" id="formp2">
+						<p>
+						Location Name: <input type="text" value="{{loc_name}}" name="loc_name"><br/>
+						Private: <input type="checkbox" name="loc_private" value="loc_private">
+						</p>
+						<input type="hidden" value="" name="col_state" id="col_state2">
+						<p>
+						Color Name: <input type="text" value="{{col_name}}" name="col_name"><br/>
+						Private: <input type="checkbox" name="col_private" value="col_private">
+						</p>
+						<input type="submit" value="Save">
+					</form>
+					</form>
 					{% else %}
 					<p>Please <a href='{{url_for("login")}}'>log in</a> to save locations and colors..</p>
 					{% endif %}

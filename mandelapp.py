@@ -192,6 +192,45 @@ def saveCol():
         thumbnail.close()"""
     return redirect("/")
 
+@app.route("/saveBoth", methods=["GET","POST"])
+def saveBoth():
+    is_logged_in = "user" in session
+    if is_logged_in:
+        username=session["user"]
+    else:
+        username=None
+
+    if is_logged_in and request.form:
+        data=request.form
+        loc_is_public=True if data.get("loc_private") is None else False
+        col_is_public=True if data.get("col_private") is None else False
+        data=request.form
+
+        location=Locations(name=data.get("loc_name"),
+                           x=data.get("x"),
+                           y=data.get("y"),
+                           zoom=data.get("zoom"),
+                           limit=data.get("limit"),
+                           public=loc_is_public,
+                           username=session["user"])
+        db.session.add(location)
+
+        color_scheme = ColorSchemes(col_state = data.get("col_state"),
+            name=data.get("col_name"),
+            username=username,
+            public=col_is_public)
+        db.session.add(color_scheme)
+
+        db.session.commit()
+        
+        thumbnail = open(os.path.join(app.config["thumbnails"],
+                                      str(location.loc_id)), "w")
+        thumbnail.write(data.get("preview"))
+        thumbnail.close()
+
+        session["loc_id"]=location.loc_id
+        session["col_id"]=color_scheme.col_id
+    return redirect("/")
 
 #@app.route("/selectLoc",methods=["GET","POST"])
 def selectLoc():
