@@ -31,7 +31,7 @@
 	</tr>
 	{% for color_scheme in user_colors %}
 		<tr>
-			<td><form action="/colorSchemes" method="POST" id={{color_scheme.col_id}}>
+			<td><form action="/colorSchemes" method="POST" id=col{{color_scheme.col_id}}>
 				<input type="hidden" value="{{color_scheme.col_id}}" name="col_id">
 				<input type="submit" value="Choose">
 			</form></td>
@@ -57,7 +57,7 @@
 	</tr>
 	{% for color_scheme in public_colors %}
 		<tr>
-			<td><form action="/selectCol" method="POST" id={{color_scheme.col_id}}>
+			<td><form action="/selectCol" method="POST" id=col{{color_scheme.col_id}}>
 				<input type="hidden" value="{{color_scheme.col_id}}" name="col_id">
 				<input type="submit" value="Choose">
 			</form></td>

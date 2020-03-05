@@ -33,9 +33,9 @@
 	</tr>
 	{% for location in user_locations %}
 		<tr>
-			<td><form action="/locations" method="POST" id={{location.loc_id}}>
+			<td><form action="/locations" method="POST" id="loc{{location.loc_id}}">
 				<input type="hidden" value="{{location.loc_id}}" name="loc_id">
-				<img src="{{get_preview(location.loc_id)}}" height=64 width=64 alt="Choose" onclick="document.getElementById('{{location.loc_id}}').submit()">
+				<img src="{{get_preview(location.loc_id)}}" height=64 width=64 alt="Choose" onclick="document.getElementById('loc{{location.loc_id}}').submit()">
 			</form></td>
 			<td>{{location.name}}</td>
 			<td>X: {{((10000*location.x)|round)/10000}}<br>Y: {{((10000*location.y)|round)/10000}}</td>
@@ -61,9 +61,9 @@
 	</tr>
 	{% for location in public_locations %}
 		<tr>
-			<td><form action="/locations" method="POST" id={{location.loc_id}}>
+			<td><form action="/locations" method="POST" id=loc{{location.loc_id}}>
 				<input type="hidden" value="{{location.loc_id}}" name="loc_id">
-				<img src="{{get_preview(location.loc_id)}}" height=64 width=64 alt="Choose" onclick="document.getElementById('{{location.loc_id}}').submit()">
+				<img src="{{get_preview(location.loc_id)}}" height=64 width=64 alt="Choose" onclick="document.getElementById('loc{{location.loc_id}}').submit()">
 			</form></td>
 			<td>{{location.name}}</td>
 			<td>X: {{((10000*location.x)|round)/10000}}<br>Y: {{((10000*location.y)|round)/10000}}</td>
