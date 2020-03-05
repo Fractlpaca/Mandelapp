@@ -336,7 +336,7 @@ def delete():
             if location.username==username:
                 db.session.delete(location)
                 db.session.commit()
-    return redirect("/selectCol")
+    return redirect("/locations")
 
 
 @app.route("/login",methods=["GET","POST"])
