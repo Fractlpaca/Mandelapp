@@ -7,12 +7,11 @@
 </head>
 
 <body>
-	<header class='navbar'>
-        <p style='text-align:center;'>
-            <a href="{{url_for('home')}}">Mandelbrot Generator</a>|
-            <strong>Locations</strong>|
-            <a href="{{url_for('instructions')}}" target='_blank_'>How To Use</a>|
-            <a href="{{url_for('about')}}" target='_blank_'>What Is It?</a>
+	<header>
+	    <p style='text-align:center;'>
+            <a href='{{url_for("home")}}'>Mandelbrot Generator</a>|
+            <a href='{{url_for("locations")}}'>Locations</a>|
+            <strong>Colors</strong>
         </p>
     </header>
 	<h1>Color Schemes</h1>
@@ -32,7 +31,7 @@
 	</tr>
 	{% for color_scheme in user_colors %}
 		<tr>
-			<td><form action="/selectCol" method="POST" id={{color_scheme.col_id}}>
+			<td><form action="/colorSchemes" method="POST" id={{color_scheme.col_id}}>
 				<input type="hidden" value="{{color_scheme.col_id}}" name="col_id">
 				<input type="submit" value="Choose">
 			</form></td>

@@ -7,12 +7,11 @@
 </head>
 
 <body>
-	<header class='navbar'>
-        <p style='text-align:center;'>
-            <a href="{{url_for('home')}}">Mandelbrot Generator</a>|
+	<header>
+	    <p style='text-align:center;'>
+            <a href='{{url_for("home")}}'>Mandelbrot Generator</a>|
             <strong>Locations</strong>|
-            <a href="{{url_for('instructions')}}" target='_blank_'>How To Use</a>|
-            <a href="{{url_for('about')}}" target='_blank_'>What Is It?</a>
+            <a href='{{url_for("colorSchemes")}}'>Colors</a>
         </p>
     </header>
 	<h1>Locations</h1>
@@ -34,7 +33,7 @@
 	</tr>
 	{% for location in user_locations %}
 		<tr>
-			<td><form action="/selectLoc" method="POST" id={{location.loc_id}}>
+			<td><form action="/locations" method="POST" id={{location.loc_id}}>
 				<input type="hidden" value="{{location.loc_id}}" name="loc_id">
 				<img src="{{get_preview(location.loc_id)}}" height=64 width=64 alt="Choose" onclick="document.getElementById('{{location.loc_id}}').submit()">
 			</form></td>
@@ -62,7 +61,7 @@
 	</tr>
 	{% for location in public_locations %}
 		<tr>
-			<td><form action="/selectLoc" method="POST" id={{location.loc_id}}>
+			<td><form action="/locations" method="POST" id={{location.loc_id}}>
 				<input type="hidden" value="{{location.loc_id}}" name="loc_id">
 				<img src="{{get_preview(location.loc_id)}}" height=64 width=64 alt="Choose" onclick="document.getElementById('{{location.loc_id}}').submit()">
 			</form></td>
